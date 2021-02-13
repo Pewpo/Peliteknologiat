@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://src/actors/Ball.gd" type="Script" id=2]
+[ext_resource path="res://src/actors/EnemyScore.gd" type="Script" id=3]
+[ext_resource path="res://src/actors/OwnScore.gd" type="Script" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 24.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 32.0
+
+[node name="Ball" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 27
+script = ExtResource( 2 )
+
+[node name="Ball" type="Sprite" parent="."]
+position = Vector2( -4.76837e-07, 0 )
+scale = Vector2( 0.625, 0.625 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnemyScore" type="Label" parent="Control"]
+margin_left = 52.0
+margin_top = -72.0
+margin_right = 108.0
+margin_bottom = -58.0
+text = "0"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control"]
+margin_left = 20.0
+margin_top = -58.0
+margin_right = 108.0
+margin_bottom = -36.0
+text = "Enemy score"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OwnScore" type="Label" parent="Control"]
+margin_left = -56.0
+margin_top = -72.0
+margin_right = 40.0
+margin_bottom = -24.0
+text = "0"
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Control"]
+margin_left = -88.0
+margin_top = -58.0
+margin_right = -8.0
+margin_bottom = -26.0
+text = "Own score"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="area_shape_entered" from="Area2D" to="." method="_on_Area2D_area_shape_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_shape_entered" from="Area2D" to="." method="_on_Area2D_body_shape_entered"]
