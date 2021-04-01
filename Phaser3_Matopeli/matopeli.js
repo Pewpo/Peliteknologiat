@@ -200,7 +200,12 @@ function create1 ()
             //Changes direction.
             this.direction = this.heading;
             // ShiftPosition iterates through the items array changing the position of each element to be that of the element that came before it in the array
-            Phaser.Actions.ShiftPosition(this.body.getChildren(), this.headPosition.x * 16, this.headPosition.y * 16, 1);    
+            Phaser.Actions.ShiftPosition(this.body.getChildren(), this.headPosition.x * 16, this.headPosition.y * 16, 1);             
+            //Updates tail's last position.
+            var bodyParts = this.body.getChildren();
+            var lastPart = bodyParts.length-1;
+            this.tail.x = bodyParts[lastPart].x;
+            this.tail.y = bodyParts[lastPart].y;
            // hitBody checks if there is collosion between head and body.
             var hitBody = Phaser.Actions.GetFirst(this.body.getChildren(), { x: this.head.x, y: this.head.y }, 1);
             if (hitBody)
